@@ -65,18 +65,29 @@ server.post('/users', (req, res) => {
 server.delete('/users/:id', (req, res) => {
     const user = db.getUserById(req.params.id)
     if (user) {
+    //     db.deleteUser(user.id)
+    //     res.status(204).end
+    // } else if (!user) {
+    //     res.status(404).json({
+    //         message: 'The user with the specified ID does not exist.'
+    //     })
+    // } else {
+    //     res.status(500).json({
+    //         errorMessage: 'The user could not be removed'
+    //     })
+    try {
         db.deleteUser(user.id)
         res.status(204).end
-    } else if (!user) {
+    } catch (err){
         res.status(404).json({
             message: 'The user with the specified ID does not exist.'
-        })
-    } else {
+        });
+    }} else {
         res.status(500).json({
-            errorMessage: 'The user could not be removed'
+            errorMessage: 'The user could not be removed.'
         })
     }
-})
+});
 
 //PATCH
 server.patch('/users/:id', (req, res) => {
