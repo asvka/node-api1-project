@@ -76,10 +76,37 @@ server.delete('/users/:id', (req, res) => {
             errorMessage: 'The user could not be removed'
         })
     }
-    // if (!db.deleteUser){
-
-    // }
 })
+
+//PATCH
+server.patch('/users/:id', (req, res) => {
+    const user = db.getUserById(req.params.id)
+
+    if (!req.body.name || !req.body.bio) {
+        res.status(400).json({
+            errorMessage: 'Please provide name and bio for the user.'
+        })
+    }
+
+    if (user) {
+        try {
+            const updatedUser = db.updateUser(user.id, {
+                name: req.body.name || user.name,
+                bio: req.body.bio || user.bio,
+            })
+            res.status(200).json(updatedUser)
+        } catch (err) {
+            res.status(500).json({
+                errorMessage: 'The user information could not be modified.'
+            });
+        }
+    } else {
+            res.status(404).json({
+                errorMessage: 'The user with the specified ID does not exist.'
+            })
+            }
+        }
+)
 
 
 server.listen(777, () => {

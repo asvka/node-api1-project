@@ -87,8 +87,8 @@ When the client makes a `DELETE` request to `/api/users/:id`:
   X - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
 
 - If there's an error in removing the _user_ from the database:
-  - respond with HTTP status code `500`.
-  - return the following JSON object: `{ errorMessage: "The user could not be removed" }`.
+  X - respond with HTTP status code `500`.
+  X - return the following JSON object: `{ errorMessage: "The user could not be removed" }`.
 
 When the client makes a `PUT` request to `/api/users/:id`:
 
